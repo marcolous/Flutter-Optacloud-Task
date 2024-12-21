@@ -91,4 +91,37 @@ class AuthCubit extends Cubit<AuthState> {
     }
     return null;
   }
+
+  Future<String?> getEmail() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        DocumentSnapshot userDoc =
+            await _firestore.collection('users').doc(user.uid).get();
+        if (userDoc.exists && userDoc.data() != null) {
+          return (userDoc.data() as Map<String, dynamic>)['email']?.toString();
+        } else {
+          log("User document does not exist.");
+        }
+      }
+    } catch (e) {
+      log("Error getting username: $e");
+    }
+    return null;
+  }
+
+  Future<String?> getUserId() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        return user.uid;
+      } else {
+        log("No user is currently logged in.");
+        return null;
+      }
+    } catch (e) {
+      log("Error getting user ID: $e");
+      return null;
+    }
+  }
 }

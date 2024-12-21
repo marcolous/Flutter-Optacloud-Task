@@ -14,11 +14,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const Babylon());
+  runApp(const Optacloud());
 }
 
-class Babylon extends StatelessWidget {
-  const Babylon({super.key});
+class Optacloud extends StatelessWidget {
+  const Optacloud({super.key});
 
   @override
   Widget build(BuildContext context) {
